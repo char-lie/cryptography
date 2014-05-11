@@ -35,14 +35,14 @@
 \everymath{\displaystyle}
 
 \theoremstyle{plain}
-\newtheorem{affirmation}{Утверждение}[section]
+%\newtheorem{affirmation}{Утверждение}[section]
 \newtheorem{theorem}{Теорема}[section]
-\newtheorem{lemma}{Лемма}[section]
-\newtheorem{remark}{Замечание}
+%\newtheorem{lemma}{Лемма}[section]
+\newtheorem{remark}{Зауваження}
 
 \theoremstyle{definition}
-\newtheorem{definition}{Определение}[section]
-\newtheorem{example}{Пример}[section]
+\newtheorem{definition}{Визначення}[section]
+\newtheorem{example}{Приклад}[section]
 
 \theoremstyle{remark}
 
@@ -86,9 +86,10 @@
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}} 
 
-\renewcommand{\thesection}{Лекція \arabic{section}}
-
+%\renewcommand{\thesection}{Лекція \arabic{section}}
 %\usepackage{titlesec}
 %\titleformat{\section}{\normalfont\bfseries}{\thesection}{0.5em}{}
 %\titleformat{\subsection}{\itshape}{}{0.5em}{}
 %\titleformat{\subsection}{\normalfont\textit}{\thesubsection}{0.5em}{}
+
+\pagestyle{empty} % Empty page header
