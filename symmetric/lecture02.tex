@@ -228,3 +228,113 @@ $H\left( X \right)$ може бути інтерпретована як неви
 беруть логарифм за основою 2, тоді інформація та ентропія вимірюються в бітах.
 Якщо логарифм десятковий ($\lg$), то --- в дитах,
 якщо логарифм натуральний ($\ln$), то --- в натах.
+
+Розглянемо декартовий добуток скінченних множин $X$ та $Y$, тобто
+множину пар  $\left(x, y\right), x\in X, y\in Y$.
+Нехай на множині пар задано розподіл
+імовірностей  $\pdf{x, y}$. Тоді говорять, що ансамблі $X$ та $Y$
+задані сукупно. Розподіл  $\pdf{x, y}$ індукує розподіли на $X$ та $Y$:
+
+$$\begin{cases}
+\pdf{x} &= \sum_{y_j \in Y}\pdf{x,y} \\
+\pdf{y} &= \sum_{x_j \in X}\pdf{x,y}
+\end{cases}$$
+
+тобто $X$ та $Y$ можна також розглядати і як окремі ансамблі.
+
+\begin{definition}[Сукупна ентропія]
+    Сукупною ентропією ансамблів  $X$ та  $Y$ називається величина
+    $$H\left( XY \right)=-\sum_{x,y} \pdf{x,y} \cdot \log{\pdf{x,y}}$$
+\end{definition}
+
+\begin{definition}[Незалежні ансамблі]
+    Сукупно задані ансамблі $X$ та $Y$ називаються
+    незалежними, якщо
+    $$\forall \left( x,y \right): \pdf{x,y} = \pdf{x} \cdot \pdf{y}$$
+\end{definition}
+
+Розглянемо декартовий добуток скінченних множин $X$ та $Y$, тобто
+множину пар
+$$\left( x,y \right),\; x\in X,y\in Y$$
+
+\begin{definition}[Сукупно задані ансамблі]
+Нехай на множині пар задано розподіл імовірностей $\pdf{x,y}$.
+Тоді говорять, що ансамблі $X$ та $Y$ задані сукупно.
+\end{definition}
+
+Розподіл  $\pdf{x,y}$ індукує розподіли на $X$ та $Y$:
+$$\pdf{x}=\sum_{y_j \in Y} \pdf{x,y};\qquad
+    \pdf{y}=\sum_{x_j\in X} \pdf{x,y}$$
+
+тобто $X$ та $Y$ можна також розглядати і як окремі ансамблі.
+
+\begin{definition}[Сукупна ентропія]
+    Сукупною ентропією ансамблів  $X$ та $Y$ називається величина
+    $$H\left( XY \right) = -\sum_{x,y} \pdf{x,y} \cdot \log{\pdf{x,y}}$$
+\end{definition}
+
+\begin{definition}[Незалежні ансамблі]
+    Сукупно задані ансамблі $X$ та $Y$ називаються незалежними, якщо
+    $$\forall \left( x,y \right):\; \pdf{x,y} = \pdf{x} \cdot \pdf{y}$$
+\end{definition}
+
+З курсу теорії ймовірностей відомо визначення умовної ймовірності:
+$$\pdf{x \mcond y} = \frac{\pdf{x,y}}{\pdf{y}},\; \pdf{y}\neq 0$$
+
+Нехай відомий результат $y$ експерименту $Y$. Тоді можна визначити умовну
+ентропію таким чином:
+$$H\left(X|y\right) = -\sum_{x\in X} \pdf{x|y} \cdot \log\pdf{x|y}$$
+
+Усереднивши  $H\left( X \mcond y \right)$ за всіма  $y$,
+отримаємо умовну ентропію ансамблю $X$ відносно ансамблю $Y$:
+
+$$H\left( X \mcond Y \right)
+    = \frac{1}{\left| Y \right|}
+        \cdot \sum_{y \in Y} H\left( X \mcond y \right)$$
+
+Властивості ентропії
+\begin{enumerate}
+    \item  $H\left( X \right) \ge 0$.
+    \item  $H(X)=0$ тоді і тільки тоді, коли деяке  $p_i=1$, а всі інші 
+        $p_j=0,j\neq i$. ($\log{0}$ не визначений, та оскільки  $p\cdot
+        \log{p} \xrightarrow[p \to 0]{} 0$, то за неперервністю
+        довизначимо такі доданки в $H\left( X \right)$ як нульові).
+    \item $H\left( X \right)$ приймає максимальне значення тоді,
+        коли всі $x_i$ є рівноймовірними:
+        $p\left( x_i \right) = \frac{1}{m}$. В цьому випадку
+        $$H\left( X \right)
+            = -\sum_{i=1}^m \frac{1}{m} \cdot \log{\frac{1}{m}}
+            =\log{m}$$
+    \item Якщо $X$ та $Y$ --- незалежні, то
+        $$H\left( XY \right) = H\left( X \right) + H\left( Y \right)$$
+    \item $$H\left( X \mcond Y \right)\ge 0$$
+    \item Інтуїтивно: сукупна невизначеність експериментів $X$ та $Y$
+        дорівнює невизначеності $X$ плюс невизначеність $Y$, що
+        залишилася після того, як результат експерименту $X$ став відомим.
+        $X$ та $Y$ входять у формулу симетрично
+        $$H\left( XY \right)
+            = H\left( X \right)+H\left( Y \mcond X \right)
+            = H\left( Y \right)+H\left( X \mcond Y \right)$$
+    \item Додаткові знання не можуть збільшити невизначеність
+        $$H\left( X \right)
+            \ge H\left( X \mcond Y \right)
+            \ge H\left( X \mcond YZ \right)
+            \ge \dots$$
+\end{enumerate}
+
+\begin{definition}[Взаємна інформація]
+    Взаємною інформацією ансамблів $X$ та $Y$ називається величина 
+    $$I\left( X; Y \right)
+        = H\left( X \right)-H\left( X \mcond Y \right)
+        = H\left( Y \right)-H\left( Y \mcond X \right)$$
+
+    При незалежних ансамблях $X$ та $Y$
+    $$I\left( X; Y \right) = 0$$
+\end{definition}
+
+Якщо множини $X$ та $Y$ співпадають, то декартовий добуток
+$X \times Y$ позначимо як  $X^2$.
+Аналогічно, якщо всі $X_i=X$, то
+$$X_1 \times X_2 \times \dots \times X_n=X^n$$
+
+\section{Ентропія на символ джерела}
