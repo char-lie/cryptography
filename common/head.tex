@@ -75,7 +75,8 @@
 \newcommand{\cdfn}[1]{F_n\left(#1\right)}
 \newcommand{\CDFOF}[2]{F_{#1}\left\{#2\right\}}
 \newcommand{\CDF}[1]{\CDFOF{}{#1}}
-\newcommand{\pdf}[1]{p\left(#1\right)}
+\newcommand{\pdf}[1]{\mathrm{p}\left(#1\right)}
+\newcommand{\entropy}[1]{H\left( #1 \right)}
 
 \newcommand{\integralc}[4]{\int\limits_{#1}^{#2} #4 #3}
 \newcommand{\integral}[4]{\integralc{#1}{#2}{d #3}{#4}}
@@ -83,6 +84,7 @@
 
 \newcommand{\argmaxof}[2]{\underset{#2}{\operatorname{arg\,max}}#1}
 \newcommand{\argmax}[1]{\argmaxof{#1}{}}
+
 \def \mcond {\;\middle|\;}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}} 
