@@ -28,6 +28,8 @@
 \usepackage{pstricks}
 \usepackage{cancel} % formulas cancel
 \usepackage{multicol}
+\usepackage{mathrsfs}
+
 \author{Завадська Л.О., Савчук М.М.}
 
 \pdfcompresslevel=9
@@ -38,11 +40,11 @@
 %\newtheorem{affirmation}{Утверждение}[section]
 \newtheorem{theorem}{Теорема}[chapter]
 %\newtheorem{lemma}{Лемма}[section]
-\newtheorem{remark}{Зауваження}
+\newtheorem{remark}[theorem]{Зауваження}
 
 \theoremstyle{definition}
-\newtheorem{definition}{Визначення}[chapter]
-\newtheorem{example}{Приклад}[chapter]
+\newtheorem{definition}[theorem]{Визначення}
+\newtheorem{example}[theorem]{Приклад}
 
 \theoremstyle{remark}
 
@@ -76,7 +78,8 @@
 \newcommand{\CDFOF}[2]{F_{#1}\left\{#2\right\}}
 \newcommand{\CDF}[1]{\CDFOF{}{#1}}
 \newcommand{\pdf}[1]{\mathrm{p}\left(#1\right)}
-\newcommand{\entropy}[1]{H\left( #1 \right)}
+\def \entropy {H}
+\newcommand{\entropyOf}[1]{\entropy\!\left( #1 \right)}
 
 \newcommand{\integralc}[4]{\int\limits_{#1}^{#2} #4 #3}
 \newcommand{\integral}[4]{\integralc{#1}{#2}{d #3}{#4}}
@@ -86,6 +89,15 @@
 \newcommand{\argmax}[1]{\argmaxof{#1}{}}
 
 \def \mcond {\;\middle|\;}
+
+\def \xor {\mathbin{\oplus}}
+
+\def \Cryptosystem {\Sigma}
+\def \MessagesSet {\mathcal{M}}
+\def \CryptogramsSet {\mathcal{C}}
+\def \KeysSet {\mathcal{K}}
+\def \EAlgorithmsSet {\mathcal{E}}
+\def \DAlgorithmsSet {\mathcal{D}}
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}} 
 
