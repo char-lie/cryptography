@@ -1,1 +1,93 @@
+\def\ZN{\mathbb{Z}_{N}}
 \chapter{Алгоритм Шора для факторизации}
+\section{Введение}
+
+Есть число $N$
+\begin{equation*}
+  N = a \cdot b,\qquad a \neq b
+\end{equation*}
+
+\textbf{Задача факторизации}: для числа
+$N = p_{1}^{\alpha_{1}} \cdots p_{t}^{\alpha_{t}}$
+\begin{itemize}
+  \item либо получить каноническую форму
+  \item либо получить нетривиальный делитель
+\end{itemize}
+
+Число $a \in \mathbb{Z}_{N}$ \textbf{принадлежит показателю} $\delta$, если
+$\delta$ --- минимальное число, для которого
+$a^{\delta} \equiv 1 \mod n$.
+Обозначаем $\delta_{N}\left( a \right)$.
+
+Показатель существует только если $a$ и $N$ взаимно просты ($a \in \ZN$)
+и по сути является порядком $a$ в группе
+$\ZN: \delta_{n}\left( a \right) = ord_{N}\left( a \right)$.
+Если $gcd\left( a, N \right) \neq 1$, то мы нашли нетривиальный делитель.
+
+Допустим, что для заданного $a \in \ZN$ у нас есть оракул $O_{f}$,
+который возвращает показатель числа.
+Если этот оракул полиномиален, то можно факторизовать число (вероятностно)
+
+Пусть $r$ --- чётное и $gcd\left( a^{r/2} + 1, N \right) = 1$,
+где $O_{f}\left( a \right) = r$
+\begin{equation*}
+  \begin{split}
+    a^{r} \ge 1 \mod N \\
+    \left( a^{r/2} - 1 \right) \cdot \left( a^{r/2} + 1 \right) \equiv
+      0 \mod N
+  \end{split}
+\end{equation*}
+Но $a^{r/2} \neq 1 \mod N$, потому что иначе $r$ --- не минимальное число
+(нарушение определения показателя).
+Значит, $\left( a^{r/2} - 1 \right)$ и $N$ имеет нетривиальный общий делитель.
+
+Важно: условие $gcd\left( a^{r/2} + 1, N \right) = 1$ можно заменить на
+условие $a^{r/2} + 1 \vdots N$.
+
+\begin{affirmation}
+  Пусть $N = p_{1}^{\alpha_{1}} \cdots p_{t}^{\alpha_{t}}$ и
+  \begin{equation*}
+    S = \left\{ a \in \ZN: ord\left( a \right) mod 2 = 0
+    \lor a^{ord\left( a \right)/2} + 1 \vdots N \right\}
+  \end{equation*}
+  Тогда
+  \begin{equation*}
+    \left| S \right| \le \frac{\varphi\left( N \right)}{2^k}
+  \end{equation*}
+\end{affirmation}
+
+То есть, подходящих нам $a$ очень мало.
+
+\section{Алгоритм факторизации с оракулом}
+
+\begin{enumerate}
+  \item Генерируем такое $a$, чтобы при $r = O_{f}\left( a \right)$ выполняось
+    \begin{equation*}
+      r = 2 \cdot r_1, a^{r_{\alpha}} + 1 \vdots N
+    \end{equation*}
+  \item $gcd\left( a^{r_1} - 1, N \right)$ --- нетривиальный делитель.
+\end{enumerate}
+
+\begin{affirmation}
+  В классической модели найти оракул $O_f$ не получилось.
+  Шору удалось построить его в квантовой модели.
+\end{affirmation}
+
+Рассмотрим функцию $f: \ZN \rightarrow \ZN$
+\begin{equation*}
+  f\left( x \right) = a^{x} \mod N
+\end{equation*}
+Это почти непериодическая функция --- её период не кратен $N$.
+
+\section{Квантовая система}
+
+У нас есть $\left| 0 \right>$, $\left| 1 \right>$; кубит находится в
+суперпозиции состояний
+$\lambda_1 \cdot \left| 0 \right> + \lambda_2 \left| 1 \right>$, над которыми
+можно выполнять унитарные операции.
+
+Набор кубитов --- одна из возможных интерпретаций квантово-механической системы.
+Другой вариант --- $N$-уровневая система, в которое есть $N$ состояний
+$\left| 0 \right>$, $\left| 1 \right>$, $\dots$, $\left| N-1 \right>$, и
+эти состояния ортонормированы (то есть, при измерении выпадают только эти
+состояния и ничего среднего между ними).
