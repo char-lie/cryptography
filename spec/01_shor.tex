@@ -1,4 +1,5 @@
 \def\ZN{\mathbb{Z}_{N}}
+\newcommand\qubit[1]{\left| #1 \right>}
 \chapter{Алгоритм Шора для факторизации}
 \section{Введение}
 
@@ -42,13 +43,13 @@ $\ZN: \delta_{n}\left( a \right) = ord_{N}\left( a \right)$.
 Значит, $\left( a^{r/2} - 1 \right)$ и $N$ имеет нетривиальный общий делитель.
 
 Важно: условие $gcd\left( a^{r/2} + 1, N \right) = 1$ можно заменить на
-условие $a^{r/2} + 1 \vdots N$.
+условие $a^{r/2} + 1 \nmid N$.
 
 \begin{affirmation}
   Пусть $N = p_{1}^{\alpha_{1}} \cdots p_{t}^{\alpha_{t}}$ и
   \begin{equation*}
     S = \left\{ a \in \ZN: ord\left( a \right) mod 2 = 0
-    \lor a^{ord\left( a \right)/2} + 1 \vdots N \right\}
+    \lor a^{ord\left( a \right)/2} + 1 \nmid N \right\}
   \end{equation*}
   Тогда
   \begin{equation*}
@@ -63,7 +64,7 @@ $\ZN: \delta_{n}\left( a \right) = ord_{N}\left( a \right)$.
 \begin{enumerate}
   \item Генерируем такое $a$, чтобы при $r = O_{f}\left( a \right)$ выполняось
     \begin{equation*}
-      r = 2 \cdot r_1, a^{r_{\alpha}} + 1 \vdots N
+      r = 2 \cdot r_1, a^{r_{\alpha}} + 1 \nmid N
     \end{equation*}
   \item $gcd\left( a^{r_1} - 1, N \right)$ --- нетривиальный делитель.
 \end{enumerate}
@@ -81,13 +82,120 @@ $\ZN: \delta_{n}\left( a \right) = ord_{N}\left( a \right)$.
 
 \section{Квантовая система}
 
-У нас есть $\left| 0 \right>$, $\left| 1 \right>$; кубит находится в
+У нас есть $\qubit{0}$, $\qubit{1}$; кубит находится в
 суперпозиции состояний
-$\lambda_1 \cdot \left| 0 \right> + \lambda_2 \left| 1 \right>$, над которыми
-можно выполнять унитарные операции.
+$\alpha_1 \cdot \qubit{0} + \alpha_2 \qubit{1}$, над которыми
+можно выполнять унитарные операции в пространстве Гильберта
+$C \cdot \mathbb{Z}_2$.
+
+Коэффициенты $\alpha_1, \alpha_2$:
+\begin{itemize}
+  \item
+    $\alpha_1, \alpha_2 \in \mathbb{C}$,
+  \item
+    $\left| \alpha_1 \right|^2 + \left| \alpha_2 \right|^2 = 1$,
+  \item
+    $\left| \alpha_1 \right|^2$ --- вероятность попасть в $\qubit{0}$,
+  \item
+    $\left| \alpha_2 \right|^2$ --- вероятность попасть в $\qubit{1}$.
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics{qubit}
+  \caption{Состояние кубита}
+\end{figure}
+
+К кубитам можно применять преобразование Уолша-Адамара
+\begin{equation*}
+  \begin{split}
+    W\left( \qubit{0} \right)
+      &= \frac{1}{\sqrt{2}} \cdot \left( \qubit{0} + \qubit{1} \right) \\
+    W\left( \qubit{1} \right)
+      &= \frac{1}{\sqrt{2}} \cdot \left( \qubit{0} - \qubit{1} \right) \\
+  \end{split}
+\end{equation*}
 
 Набор кубитов --- одна из возможных интерпретаций квантово-механической системы.
 Другой вариант --- $N$-уровневая система, в которое есть $N$ состояний
-$\left| 0 \right>$, $\left| 1 \right>$, $\dots$, $\left| N-1 \right>$, и
+$\qubit{0}$, $\qubit{1}$, $\dots$, $\qubit{N-1}$, и
 эти состояния ортонормированы (то есть, при измерении выпадают только эти
 состояния и ничего среднего между ними).
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics{shor}
+  \caption{Алгоритм Шора}
+  \label{fig:shor}
+\end{figure}
+
+Обозначения на рис. \ref{fig:shor}:
+\begin{itemize}
+  \item $\psi_i$ --- состояние системы,
+  \item $W_N$ --- преобразование Уолша (или преобразование Фурье),
+  \item $U_f$ --- стандартный оракул (базисный в квантовой модели),
+  \item $Q_N$ --- преобразование Фурье,
+  \item стрелочка --- измерение.
+\end{itemize}
+
+Что происходит?
+\begin{enumerate}
+  \item
+    \begin{equation*}
+      \qubit{\psi_0} = \qubit{0} \qubit{0}
+    \end{equation*}
+  \item 
+    \begin{equation*}
+      \qubit{\psi_1} = W_N\left( \qubit{0} \right) \otimes \qubit{0}
+    \end{equation*}
+    Свойство: $W_N\left( \qubit{0} \right)$ даёт равномерную суперпозицию
+    (что Уолш, что Фурье), то есть
+    \begin{equation*}
+      W_N\left( \qubit{0} \right)
+      = \frac{1}{\sqrt{N}}
+        \cdot \left( \qubit{0} + \qubit{1} + \dots + \qubit{N-1} \right)
+    \end{equation*}
+  \item 
+    Суперпозиция всех значений функции $f\left( x \right) = a^x \mod N$
+    \begin{equation*}
+      \qubit{\psi_2} = \frac{1}{\sqrt{N}} \cdot \left( \qubit{0} \cdot \qubit{a^0 \mod N} + \qubit{1} \cdot \qubit{a^1 \mod N} + \dots + \qubit{N-1} \cdot \qubit{a^{N-1}} \mod N \right)
+    \end{equation*}
+  \item Мы измерили второй регистр -- там второй кубит принял некоторое значение
+    $\qubit{y_0}$
+    \begin{equation*}
+      \qubit{\psi_0} = \frac{1}{\sqrt{k}} \cdot \left( \qubit{x_0} + \qubit{x_0 + r} + \dots + \qubit{x_0 + \left( k-1 \right) \cdot r} \right) \cdot \qubit{y_0},
+    \end{equation*}
+    где $\qubit{x_0}$ --- все состояния $\qubit{x}$, для которых $f\left( x \right) = y_0$, $k = \lfloor \frac{N}{r} \rfloor$.
+  \item Преобразование Фурье
+    \begin{equation*}
+      Q_N\left( \qubit{k} \right) = \frac{1}{\sqrt{N}} \cdot \sum_{t} \exp{\frac{2 \cdot \pi \cdot i}{N} \cdot k \cdot t} \cdot \qubit{t}
+    \end{equation*}
+    Применяя его к первому регистру, получаем
+    \begin{equation*}
+      \qubit{\psi_4} = \sum_{S} c\left( S \right) \cdot \qubit{S} \cdot \qubit{y_0},
+    \end{equation*}
+    где
+    \begin{equation*}
+      c\left( S \right) =
+      \begin{cases}
+        \frac{\sqrt{N}}{r} &, S \equiv 0 \mod \frac{N}{r}, \\
+        0 &, S \neq 0 \mod \frac{N}{r}. \\
+      \end{cases}
+    \end{equation*}
+    Таким образом это будет или $0$, или равномерная суперпозиция.
+  \item Измеряем первый регистр --- можем получить тоьлко те $S$, у которых
+    $c\left( S \right) \neq 0$, т.е. состояния вида $\qubit{\beta \cdot \frac{N}{r}}$, где $\beta$ --- неизвестная константа.
+\end{enumerate}
+
+Таким образом мы знаем какое-то число $S$ такое, что
+\begin{equation*}
+  S = \beta \cdot \frac{N}{r}.
+\end{equation*}
+Если $gcd\left( S, N \right) = 1$ и $N \mid r$, то всё, но у нас
+$N \nmid r$! Поэтому на самом деле
+\begin{equation*}
+  \frac{S}{N} = \frac{\beta}{r},
+\end{equation*}
+и мы строим рациональные приближения при помощи цепных дробей.
+
+Итоговая сложность алгоритма Шора --- $O\left( \log^3 N \right)$.
