@@ -21,13 +21,13 @@
 
 Пусть $S$ --- источник информации, который наблюдается $A$.
 
-$S=\left\{{s}_{i},i=1{\dots}\left|S\right|\right\}$  --–  эти сообщения
+$S=\left\{{s}_{i} \mid i=1{\dots}\left|S\right|\right\}$  --–  эти сообщения
 надо передать с аутентификацией
 
-$M=\left\{{m}_{i},i=1{\dots}\left|\text{М}\right|\right\}$ –-- множество
+$M=\left\{{m}_{i} \mid i=1{\dots}\left|\text{М}\right|\right\}$ –-- множество
 сообщений, полученных в результате кодирования
 
-$E=\left\{{e}_{i},i=1{\dots}\left|E\right|\right\}$ --– множество
+$E=\left\{{e}_{i} \mid i=1{\dots}\left|E\right|\right\}$ --– множество
 алгоритмов кодирования с аутентификацией: 
 ${\forall}i:{e}_{i}:S\rightarrow M$
 
@@ -40,14 +40,18 @@ ${\forall}i:{e}_{i}:S\rightarrow M$
   Будем считать, что  $M=\bigcup\limits_{e \in E} e\left( S \right)$
   --– объединение $e\left( S \right)$
 \item\label{it:properties:e:inv}
-  существет обратное отображение
-Для  ${\forall}e \in S$ определим обратное отображение
-\begin{equation*}
-  {f}_{e}:M\rightarrow S \cup \left\{ 0 \right\}
-\end{equation*}
-Т.е. для 
-${\forall}s \in S,e \in E:{f}_{e}\left(e\left(s\right)\right)=S$
-и  ${\forall}m{\notin}e(S):{f}_{e}\left(m\right)=0$
+  Существет обратное отображение.
+  Для  ${\forall}e \in S$ определим обратное отображение
+  \begin{equation*}
+    {f}_{e}:M\rightarrow S \cup \left\{ 0 \right\}
+  \end{equation*}
+  То есть
+  \begin{equation*}
+    \begin{cases}
+      \forall s \in S, e \in E&: {f}_{e}\left(e\left(s\right)\right)=S,\\
+      \forall m \notin e\left( S \right)&: {f}_{e}\left(m\right)=0.
+    \end{cases}
+  \end{equation*}
 \end{enumerate}
 
 
@@ -72,20 +76,22 @@ ${\forall}s \in S,e \in E:{f}_{e}\left(e\left(s\right)\right)=S$
  Свойства:
 
 \begin{itemize}
-\item Множество кодов $E$ --- открытая информация и известна аналитику
-\item $A$ и $B$ предварительно строят $A$-код и выбирают из множества $E$
-случайное отображение для работы --- и выбранное отображение является
-секретом (общим секретом $A$ и $B$)
-\item Для передачи информации о состоянии источника $S$ $A$ вычисляет 
-\end{itemize}
-$m = e\left( s \right)$ --– сообщение с аутентификацией; $m$ передается $B$ 
+  \item
+    Множество кодов $E$ --- открытая информация и известна аналитику
+  \item
+    $A$ и $B$ предварительно строят $A$-код и выбирают из множества $E$
+    случайное отображение для работы --- и выбранное отображение является
+    секретом (общим секретом $A$ и $B$)
+  \item
+    Для передачи информации о состоянии источника $S$ $A$ вычисляет 
+    $m = e\left( s \right)$ --– сообщение с аутентификацией; $m$ передается $B$
+  \item
+    Критерий аутентичности сообщения, который применяет $B$:
 
-\begin{itemize}
-\item Критерий аутентичности сообщения, который применяет $B$:
-\end{itemize}
- ${f}_{e}\left(m\right){\neq}0$ --- сообщение подлинно
+    ${f}_{e}\left(m\right){\neq}0$ --- сообщение подлинно
 
- ${f}_{e}\left(m\right)=0$ --- сообщение не подтверждено
+    ${f}_{e}\left(m\right)=0$ --- сообщение не подтверждено
+\end{itemize}
 
 Дополнительные свойства
 
@@ -95,7 +101,8 @@ $m = e\left( s \right)$ --– сообщение с аутентификацие
   \item 
     если $\left|M\right|=\left|S\right|$, то 
     \begin{equation*}
-      {\forall}m{\in}M,{\forall}e{\in}E{\nexists}s{\in}S:e\left(s\right)=m
+       \left(\forall m \in M\right) \left(\forall e \in E\right)
+       \left(\nexists s \in S\right): e\left(s\right)=m
     \end{equation*}
     по сути это приведёт к тому, что все сообщения будут аутентичними и
     сама схема не пройдет
@@ -106,19 +113,21 @@ $m = e\left( s \right)$ --– сообщение с аутентификацие
     Пусть
     \begin{equation*}
       E\left( m \right)
-      = \left\{e:m{\in}e\left(S\right)\right\}
-      =\left\{e:{\exists}s:e\left(s\right)
+      = \left\{e \mid m \in e\left(S\right)\right\}
+      =\left\{e \mid \exists s:e\left(s\right)
       =m\right\}
     \end{equation*}
 
     Если  $\left|E(m)\right|=1$, то всё, аналитик сразу нашел правильное $e$
     $\Rightarrow $ всё взломано.
-    Отсюда новое условие на А-код: 
+    Отсюда новое условие на $A$-код: 
     ${\forall}m:\left|E\left(m\right)\right|>1$.
 
     С другой стороны, если  $\left|E\left(m\right)\right|=\left|E\right|$,
-    то любое сообщение подойдет как правильное
-    (${\forall}e:{\exists}s:e\left(s\right)=m$).
+    то любое сообщение подойдет как правильное, так как
+    \begin{equation*}
+      \left(\forall e\right)\left(\exists s\right):e\left(s\right)=m.
+    \end{equation*}
     Криптоаналитик тогда может найти ложное сообщение из множества
     $\bigcap\limits_{e{\in}E}e\left( S \right)$ 
     Уточнение к написанному (и новое условие на $A$-код) 
